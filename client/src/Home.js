@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react"
-
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
-const test = document.getElementById('test')
-const [books,setBooks] = useState();
-const genres = ['romance','fantasy','mystery','action','adventure','comedy','horror','drama','tragedy','science-fiction']
-const subgenres = ['school life','supernatural','martial arts','slice of life','sports','historical','psychological']
+    const navigate = useNavigate();
+    const test = document.getElementById('test')
+    const [books,setBooks] = useState();
+    const genres = ['romance','fantasy','mystery','action','adventure','comedy','horror','drama','tragedy','science-fiction']
+    const subgenres = ['school life','supernatural','martial arts','slice of life','sports','historical','psychological']
 
 
 const searchByCategory = (category) =>{
 const matched = []
     if(books){
-       books.map(
+       books.forEach(
         book =>{
             const subject = book.subject;
             const matchArr = subject.filter(str => str.includes(category))
@@ -36,15 +36,17 @@ else{
 const getRandomNum = () =>{
     return Math.random()*10000000000
 }
-const random = getRandomNum();   
-useEffect(()=>{  
+
+const getBooks = ()=>{  
+    const random = getRandomNum();   
     fetch(`https://openlibrary.org/search.json?sort=random_${random}&subject=Fiction`)
 .then((res) => res.json())
-.then((data) => setBooks(data.docs))},[])
+.then((data) => setBooks(data.docs))}
 console.log(books)
 return (
 <div>
-    <button id= "romance" onClick={ () => searchByCategory(test.id)}>Test</button>
+<button onClick={() => navigate('/profile')}>Profile</button>
+    <button onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
     <h3>Genres</h3>
     {genres.map( genre =>  <button id= {genre} key={genre} onClick={ () => searchByCategory(genre)}>{genre}</button>)}
     <h3>Sub-genres</h3>
