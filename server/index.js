@@ -2,7 +2,7 @@ const express = require('express')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const port = 8000
-// const {getAllBooks} =require('./handlers')
+const {addUser, getUser} =require('./handlers')
 express()
 
     .use(express.json())
@@ -13,8 +13,8 @@ express()
         res.status(200).json({status:200, message:'hi!'})
     })
 
-    // .get('/all-books',getAllBooks)
-
+    .post('/add-user',addUser)
+    .get('/get-user',getUser)
 
     .listen(port, () => {
     console.log(`Listening on port ${port}`)
