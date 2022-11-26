@@ -4,9 +4,10 @@ import Profile from './Profile';
 import Home from './Home'
 import LoginButton from './LoginButton';
 import LogoutButton from './logoutButton';
+import {useAuth0} from '@auth0/auth0-react'
 
 const App = () => {
-  
+  const { isAuthenticated } = useAuth0();
   return (
     
     <Router>
@@ -16,6 +17,7 @@ const App = () => {
       <LoginButton/>
       <LogoutButton/>
     </main>
+    {isAuthenticated &&
       <Routes>
       {/* • search all fiction books based on genre
         ◦ filters
@@ -30,6 +32,7 @@ const App = () => {
         <Route path ="/book/:bookId"element={<h1>book page</h1>}/>
         
       </Routes>
+}
     </Router>
   );
 }
