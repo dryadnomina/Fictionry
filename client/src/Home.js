@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState,useContext } from "react"
 import { useNavigate } from "react-router-dom";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { UserContext } from "./UserContext";
 const Home = () => {
+
+    // const {actions:{addEmail}} = useContext()
+    const {user} = useAuth0()
+    const {actions:{getUser}} = useContext(UserContext);
+    
     const navigate = useNavigate();
     const test = document.getElementById('test')
     const [books,setBooks] = useState();
@@ -10,6 +16,7 @@ const Home = () => {
 
 
 const searchByCategory = (category) =>{
+   
 const matched = []
     if(books){
        books.forEach(
@@ -45,10 +52,14 @@ const getBooks = ()=>{
 console.log(books)
 return (
 <div>
+    <button onClick={() => {if (user){getUser(user.email)}}}>getUser</button>
 <button onClick={() => navigate('/profile')}>Profile</button>
     <button onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
     <h3>Genres</h3>
-    {genres.map( genre =>  <button id= {genre} key={genre} onClick={ () => searchByCategory(genre)}>{genre}</button>)}
+    {genres.map( genre =>  <button id= {genre} key={genre} onClick={ () => {
+        searchByCategory(genre);
+    }
+        }>{genre}</button>)}
     <h3>Sub-genres</h3>
     {subgenres.map(subgenre =>  <button id= {subgenre} key={subgenre} onClick={ () => searchByCategory(subgenre)}>{subgenre}</button>)}
    

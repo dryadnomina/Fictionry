@@ -5,9 +5,12 @@ import Home from './Home'
 import LoginButton from './LoginButton';
 import LogoutButton from './logoutButton';
 import {useAuth0} from '@auth0/auth0-react'
+import { useContext } from 'react';
+import { useEffect } from 'react';
 
 const App = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated,isLoading,error } = useAuth0();
+  
   return (
     
     <Router>
@@ -17,7 +20,7 @@ const App = () => {
       <LoginButton/>
       <LogoutButton/>
     </main>
-    {isAuthenticated &&
+    {isAuthenticated && !isLoading &&
       <Routes>
       {/* • search all fiction books based on genre
         ◦ filters
@@ -32,7 +35,10 @@ const App = () => {
         <Route path ="/book/:bookId"element={<h1>book page</h1>}/>
         
       </Routes>
-}
+      
+    }
+    {isLoading && !error && <h2>Loading...</h2>}
+    {error && <h2>A problem has occurred!</h2>}
     </Router>
   );
 }

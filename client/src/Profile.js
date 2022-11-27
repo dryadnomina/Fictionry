@@ -9,9 +9,6 @@ return(
             <p>Name: {user.given_name}</p>
             <p>Last Name: {user.family_name}</p>
             <p>Email: {user.email}</p>
-            <p></p>
-            <p></p>
-            <p></p>
         </article>
     )
 )
