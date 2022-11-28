@@ -26,10 +26,10 @@ const addUser = async (req, res) => {
 
         if(userExists.length === 0){
             await db.collection("users").insertOne(newUser);
-            res.status(201).json({status:201 , message:"New User Added"});
+            res.status(201).json({status:201 , message:"New User Added", data: newUser});
         }
         if(userExists.length > 0){
-            res.status(400).json({status:400,message:'User already exists'})
+            res.status(400).json({status:400,message:'User already exists', data: userExists[0]})
         }
     } catch (err) {
         console.log(err.stack);
@@ -44,9 +44,9 @@ const addUser = async (req, res) => {
 
 //runs in user context, when user is authenticated - returns user obj based on email
 const getUser = async (req, res) => {
-    const {email} = req.body;
-    const client =  new MongoClient(MONGO_URI,options);
 
+    const client =  new MongoClient(MONGO_URI,options);
+    const {email} = req.body;
     try {
 
         await client.connect();
@@ -74,8 +74,40 @@ const getUser = async (req, res) => {
 
 };
 
-//Update user,when user state changes, updates user obj- this handles changes in wishlist,reading,currently reading,and comments
+//Update user,when user state changes, updates user obj- this handles changes in wishlist,reading,currently reading,and user reviews
+const updateUser = async (req, res) => {
+    const client =  new MongoClient(MONGO_URI,options);
+    try {
+        
+        await client.connect();
+        
+        const db = client.db('Fictionry');
+        const updatedUser = req.body;
+        const {_id} = req.body;
+        const allUsers =  await db.collection("users").find().toArray();
+        console.log(allUsers)
+        const userCheck = allUsers.filter(obj => obj["_id"] === updatedUser["_id"]);
+        console.log(userCheck)
+        const query = {_id :_id}
+        console.log(query)
+        if(userCheck.length > 0){
+            const result = await db.collection("users").replaceOne(query, updatedUser, {upsert: true});
+            console.log(result)
+            res.status(200).json({status:200, message: 'user updated'})
+        }
+        if(userCheck.length === 0){
+            res.status(400).json({status:400, message:'User not found!'})
+        }
+        }
+        catch(err){
+            console.log(err);
+            res.status(500).json({status:500, message:'something went wrong!'})
+        }
+        finally{
+            client.close();
+        }
+};
 
-module.exports ={addUser, getUser}
+module.exports ={addUser, getUser,updateUser}
 
     
