@@ -1,13 +1,13 @@
-import { useEffect, useState,useContext } from "react"
+import { useState,useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { UserContext } from "./UserContext";
 
-const Home = () => {
+const BookFinder = () => {
 
     // const {actions:{addEmail}} = useContext()
     const {user} = useAuth0()
-    const {actions:{getUser}} = useContext(UserContext);
+    const {actions:{getUser,state}} = useContext(UserContext);
     
     const navigate = useNavigate();
     const test = document.getElementById('test')
@@ -18,8 +18,6 @@ const Home = () => {
     const subgenres = ['school life','supernatural','martial arts','slice of life','sports','historical','psychological']
 
 const searchByCategory = (category) =>{
-        // const results = document.getElementById('results');
-        // results.innerHTML = '';
 
     const matches = [];
     books.map(
@@ -108,4 +106,4 @@ return (
 )
 }
 
-export default Home
+export default BookFinder

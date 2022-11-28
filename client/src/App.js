@@ -1,9 +1,10 @@
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom'
 import Header from './Header';
 import Profile from './Profile';
-import Home from './Home'
+import BookFinder from './BookFinder'
 import LoginButton from './LoginButton';
 import LogoutButton from './logoutButton';
+import Welcome from './Welcome';
 import {useAuth0} from '@auth0/auth0-react'
 import { useContext } from 'react';
 import { useEffect } from 'react';
@@ -25,8 +26,9 @@ const App = () => {
       {/* • search all fiction books based on genre
         ◦ filters
         ◦ search bar */}
+        <Route path ="/"element={<Welcome/>}/>
         <Route path ="/search"element={<h1>search page</h1>}/>
-        <Route path ="/"element={<Home/>}/>
+        <Route path ="/find-books"element={<BookFinder/>}/>
 
         {/* book profile detail page that  includes summary. Book cover, and a place to leave a personal review 
         a flag shows if the book is in one of the user’s lists. */}
