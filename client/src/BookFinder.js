@@ -80,7 +80,7 @@ console.log('filtered',filtered)
                             <img src={book.isbn && `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} />
                             <p>{book.author_name && book['author_name']
                             .map((author,index) => 
-                            <span onClick = {() => {
+                            <span key={author + index} id={author} onClick = {() => {
                                     navigate(`/author/${book["author_key"][index]}`)
                             }}>
                                 {author}
@@ -103,7 +103,7 @@ console.log('filtered',filtered)
                             <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} />
                             <p>{book.author_name && book['author_name']
                             .map((author,index) => 
-                            <span onClick = {() => {
+                            <span key={author + index} id={author} onClick = {() => {
                                     navigate(`/author/${book["author_key"][index]}`)
                             }}>
                                 {author}
