@@ -1,13 +1,7 @@
 import { useState,useContext } from "react"
 import { useNavigate } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-import { UserContext } from "./UserContext";
-
 
 const BookFinder = () => {
-
-    const {user} = useAuth0()
-    const {actions:{getUser,state}} = useContext(UserContext);
     
     const navigate = useNavigate();
     const test = document.getElementById('test')
@@ -64,7 +58,7 @@ console.log('filtered',filtered)
             <button onClick={() => navigate('/profile')}>Profile</button>
             
             <button onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
-            <button onClick={() => searchByCategory('')}>see all books</button>
+            {books && <button onClick={() => searchByCategory('')}>see all books</button>}
             <h3>Genres</h3>
             {genres.map( genre =>  <button id= {genre} key={genre} onClick={ () => {
                 searchByCategory(genre);
@@ -84,9 +78,15 @@ console.log('filtered',filtered)
                         <div key={book.key}>
                             <p>{book.title}</p>
                             <img src={book.isbn && `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} />
-                            <p>{book.author_name && book['author_name'].map(author => <span>{author}</span>)}</p>
+                            <p>{book.author_name && book['author_name']
+                            .map((author,index) => 
+                            <span onClick = {() => {
+                                    navigate(`/author/${book["author_key"][index]}`)
+                            }}>
+                                {author}
+                            </span>)}</p>
                             <p>{book.isbn && book.isbn[0]}</p>
-                            <button onClick = {() => { navigate(`/book/${book.isbn[0]}`)} } > Book Details</button>
+                            <button onClick = {() => { navigate(`/book/${book.edition_key[0]}`)} } > Book Details</button>
                         </div>)
                     }): null
 
@@ -109,7 +109,7 @@ console.log('filtered',filtered)
                                 {author}
                             </span>)}</p>
                             <p>{book.isbn && book.isbn[0]}</p>
-                            <button onClick = {() => { navigate(`/book/${book.isbn[0]}`)} } > Book Details</button>
+                            <button onClick = {() => { navigate(`/book/${book.edition_key[0]}`)} } > Book Details</button>
                         </div>)
                     })
                     }
