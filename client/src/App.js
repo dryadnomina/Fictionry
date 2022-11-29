@@ -5,9 +5,9 @@ import BookFinder from './BookFinder'
 import LoginButton from './LoginButton';
 import LogoutButton from './logoutButton';
 import Welcome from './Welcome';
+import AuthorProfile from './AuthorProfile';
 import {useAuth0} from '@auth0/auth0-react'
-import { useContext } from 'react';
-import { useEffect } from 'react';
+import BookDetails from './BookDetails';
 
 const App = () => {
   const { isAuthenticated,isLoading,error } = useAuth0();
@@ -33,9 +33,9 @@ const App = () => {
         {/* book profile detail page that  includes summary. Book cover, and a place to leave a personal review 
         a flag shows if the book is in one of the user’s lists. */}
         <Route path ="/profile"element={<Profile/>}/>
-        <Route path ="/your-lists"element={<h1>your lists</h1>}/>
-        <Route path ="/book/:bookId"element={<h1>book page</h1>}/>
-        
+        <Route path ="/your-library"element={<h1>your library</h1>}/>
+        <Route path ="/book/:bookId"element={<BookDetails/>}/>
+        <Route path ="/author/:authorId"element={<AuthorProfile/>}/>
       </Routes>
       
     }
