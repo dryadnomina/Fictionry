@@ -10,7 +10,8 @@ express()
     .use(morgan('tiny'))
 
     .post('/add-user',addUser)
-    .get('/get-user',getUser)
+    .post('/find-user',getUser)
+    // .get('/get-book/:bookId',getBook)
     .patch('/update-user',updateUser)
     .listen(port, () => {
     console.log(`Listening on port ${port}`)

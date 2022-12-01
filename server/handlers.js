@@ -1,3 +1,5 @@
+
+
 const { v4: uuidv4 } = require("uuid");
 const { MongoClient} = require("mongodb");
 
@@ -18,7 +20,7 @@ const addUser = async (req, res) => {
 
         await client.connect();
         const db = client.db('Fictionry');
-        const newUser = {...req.body,_id:uuidv4()};
+        const newUser = {...req.body,_id:uuidv4(), library:{}, reviews:{}};
 
         const users =  await db.collection("users").find().toArray();
         console.log(users)
@@ -29,7 +31,7 @@ const addUser = async (req, res) => {
             res.status(201).json({status:201 , message:"New User Added", data: newUser});
         }
         if(userExists.length > 0){
-            res.status(400).json({status:400,message:'User already exists', data: userExists[0]})
+            res.status(400).json({status:400,message:'User already exists'})
         }
     } catch (err) {
         console.log(err.stack);
@@ -47,6 +49,8 @@ const getUser = async (req, res) => {
 
     const client =  new MongoClient(MONGO_URI,options);
     const {email} = req.body;
+    console.log(req.body)
+    console.log(email)
     try {
 
         await client.connect();
@@ -58,7 +62,7 @@ const getUser = async (req, res) => {
 
         if(userExists.length > 0){
         
-            res.status(201).json({status:201 , data:userExists[0]});
+            res.status(200).json({status:200 , data:userExists[0]});
         }
         if(userExists.length === 0){
             res.status(400).json({status:400,message:'User does not exist'})
@@ -107,6 +111,8 @@ const updateUser = async (req, res) => {
             client.close();
         }
 };
+
+
 
 module.exports ={addUser, getUser,updateUser}
 
