@@ -59,6 +59,7 @@ console.log('filtered',filtered)
         <div>
 
             <button onClick={() => navigate('/profile')}>Profile</button>
+            <button onClick={() => navigate('/search')}>Search</button>
             <button onClick={() => navigate('/library')}>Library</button>
             <button onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
             {books && <button onClick={() => searchByCategory('')}>see all books</button>}

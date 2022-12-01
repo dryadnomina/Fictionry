@@ -5,6 +5,7 @@ import BookFinder from './BookFinder'
 import LoginButton from './LoginButton';
 import LogoutButton from './logoutButton';
 import Welcome from './Welcome';
+import Search from './Search';
 import Library from './Library';
 import AuthorProfile from './AuthorProfile';
 import {useAuth0} from '@auth0/auth0-react'
@@ -28,7 +29,7 @@ const App = () => {
         ◦ filters
         ◦ search bar */}
         <Route path ="/"element={<Welcome/>}/>
-        <Route path ="/search"element={<h1>Search page</h1>}/>
+        <Route path ="/search"element={<Search/>}/>
         <Route path ="/find-books"element={<BookFinder/>}/>
 
         {/* book profile detail page that  includes summary. Book cover, and a place to leave a personal review 
