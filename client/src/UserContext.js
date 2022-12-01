@@ -6,7 +6,8 @@ export const UserContext = createContext();
  
 const initialState = {
 
-    library:{}
+    library:{},
+    reviews:{}
 }
 
 
@@ -48,6 +49,21 @@ const reducer = (state, action) => {
             library[bookId] = newBook;
             return {...state}
             }
+
+            case 'add-review' : {
+    
+                const {payload:{bookId,rating,review}} = action
+                const reviews = state.reviews
+
+                const newReview = {
+                    bookId:bookId, 
+                    rating:rating,
+                    review:review,
+                }
+        
+                reviews[bookId] = newReview;
+                return {...state}
+                }
         
 
         case 'modify-favourites' : {
@@ -155,6 +171,9 @@ const reducer = (state, action) => {
 
 //adds book to library: { bookId:123,book:{book obj},}
 const addBook = (data) => dispatch({type: 'add-book',payload:data});
+
+//add review for selected book
+const addReview = (data) => dispatch({type: 'add-review',payload:data})
 //adds current user email to state
 const addEmail = (data) => dispatch({type: 'add-email',payload:data});
 // if(user){addEmail(user.email)}
@@ -192,6 +211,7 @@ console.log('state',state)
                 markAsRead,
                 markAsCurrentlyReading,
                 addToWishlist,
+                addReview,
                 clearLibrary}
                 ,state
         }}

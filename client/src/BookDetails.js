@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useState } from "react";
 import { UserContext } from "./UserContext";
+import UserReview from "./UserReview";
 
 const BookDetails = () =>{
 const nytKey = process.env.REACT_APP_BOOKS_API_KEY
@@ -13,8 +14,6 @@ const [book,setBook] = useState()
 const [bookDescription,setBookDescription] = useState()
 const [reviews,setReviews] = useState()
 
-const userReviews = state.library.filter(book => book.id === bookId);
-console.log('user reviews',userReviews)
     useEffect(() => {
         try{
                     fetch(`https://openlibrary.org/books/${bookId}.json`)
@@ -72,7 +71,8 @@ console.log('book',book)
 console.log('reviews',reviews)
 console.log('book desc',bookDescription)
 
-if(book){
+if(book && state){
+    const userReviews = state.reviews;
     return (
     
     <div>
@@ -96,6 +96,14 @@ if(book){
             )
             }
         </div>
+        <h2>Your Reviews</h2>
+        {userReviews[bookId] && <div>
+            <p>{userReviews[bookId]["review"]}</p>
+            <p>{userReviews[bookId]["rating"]}/5</p>
+
+            
+            </div>}
+            {!userReviews[bookId] && <UserReview bookId ={bookId}/> }
     </div>
  
 )
