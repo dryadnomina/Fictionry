@@ -28,7 +28,7 @@ const App = () => {
         ◦ filters
         ◦ search bar */}
         <Route path ="/"element={<Welcome/>}/>
-        <Route path ="/search"element={<h>Search page</h>}/>
+        <Route path ="/search"element={<h1>Search page</h1>}/>
         <Route path ="/find-books"element={<BookFinder/>}/>
 
         {/* book profile detail page that  includes summary. Book cover, and a place to leave a personal review 
