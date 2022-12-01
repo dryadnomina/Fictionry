@@ -94,13 +94,16 @@ const updateUser = async (req, res) => {
         console.log(userCheck)
         const query = {_id :_id}
         console.log(query)
-        if(userCheck.length > 0){
+        if(userCheck.length > 0 && userCheck[0] !== updatedUser){
             const result = await db.collection("users").replaceOne(query, updatedUser, {upsert: true});
             console.log(result)
             res.status(200).json({status:200, message: 'user updated'})
         }
         if(userCheck.length === 0){
             res.status(400).json({status:400, message:'User not found!'})
+        }
+        if(userCheck.length > 0 && userCheck[0] === updatedUser){
+            res.status(200).json({status:200, message: 'user is already updated'})
         }
         }
         catch(err){
