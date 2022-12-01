@@ -1,9 +1,12 @@
 import { useState,useContext } from "react"
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 const BookFinder = () => {
     
     const navigate = useNavigate();
+
+    const {actions:{addBook,removeBook},state} = useContext(UserContext)
     const test = document.getElementById('test')
     const [books,setBooks] = useState();
     const [filtered,setFiltered] = useState([]);
@@ -56,7 +59,7 @@ console.log('filtered',filtered)
         <div>
 
             <button onClick={() => navigate('/profile')}>Profile</button>
-            
+            <button onClick={() => navigate('/library')}>Library</button>
             <button onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
             {books && <button onClick={() => searchByCategory('')}>see all books</button>}
             <h3>Genres</h3>
@@ -77,7 +80,8 @@ console.log('filtered',filtered)
                         return(
                         <div key={book.key}>
                             <p>{book.title}</p>
-                            <img src={book.isbn && `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} />
+                            {book.isbn && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} /> }
+                            {!book.isbn && book.lccn && <img src={`https://covers.openlibrary.org/b/lccn/${book.lccn[0]}-M.jpg`} />}
                             <p>{book.author_name && book['author_name']
                             .map((author,index) => 
                             <span key={author + index} id={author} onClick = {() => {
@@ -86,6 +90,15 @@ console.log('filtered',filtered)
                                 {author}
                             </span>)}</p>
                             <p>{book.isbn && book.isbn[0]}</p>
+                            <div>
+                            {!state.library[book.edition_key[0]] &&  <button onClick={() => {
+                                    addBook({bookId:book.edition_key[0],book: book})
+                                }}>add to library</button>}
+                                {state.library[book.edition_key[0]] && <button onClick={() => {
+                                    removeBook({bookId:book.edition_key[0]})
+                                }}>remove from library</button>}
+                                
+                            </div>
                             <button onClick = {() => { navigate(`/book/${book.edition_key[0]}`)} } > Book Details</button>
                         </div>)
                     }): null

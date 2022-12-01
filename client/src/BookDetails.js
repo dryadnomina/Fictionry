@@ -5,11 +5,14 @@ import { UserContext } from "./UserContext";
 
 const BookDetails = () =>{
 const nytKey = process.env.REACT_APP_BOOKS_API_KEY
-const {state} = useContext(UserContext)
+const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
+const {state,actions:{addBook}} = useContext(UserContext)
 const {bookId} = useParams();
 
 const [book,setBook] = useState()
+const [bookDescription,setBookDescription] = useState()
 const [reviews,setReviews] = useState()
+
 const userReviews = state.library.filter(book => book.id === bookId);
 console.log('user reviews',userReviews)
     useEffect(() => {
@@ -24,12 +27,24 @@ console.log('user reviews',userReviews)
                 catch(err){console.log(err)}
 
     },[])
+    useEffect(() => {
+if(book){
+        try{
+                    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn_13? book.isbn_13:book.isbn_10}`)
+                        .then((res) => res.json())
+                        .then((data) => {
+                            setBookDescription(data);})
+                }
+                catch(err){console.log(err)}
+            }
+    },[book])
 
+   
     useEffect(() => {
         try{
            if(book) {
             
-            if(book.isbn_13 && book.isbn_10){
+            if(book.isbn_13){
                 fetch(`https://api.nytimes.com/svc/books/v3/reviews.json?isbn=${book.isbn_13}&api-key=${nytKey}`)
                     .then(res =>res.json())
                     .then(data => {
@@ -55,24 +70,36 @@ console.log('user reviews',userReviews)
 
 console.log('book',book)
 console.log('reviews',reviews)
+console.log('book desc',bookDescription)
 
-if(book){return (<><h1>book details</h1>
-<div>
-    {book.isbn_13 && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn_13[0]}-L.jpg`} alt="" />}
-
-    <h2>{book && book.title}</h2>
-    <h3>Critic Reviews</h3>
-    {!reviews && <h3>Loading</h3>}
-    {reviews && reviews.length === 0 && <h3>No reviews found!</h3>}
-    {reviews && reviews.length > 0 && 
-    reviews.map(review => <div>
-        review placeholder
+if(book){
+    return (
+    
+    <div>
+        <h1>book details</h1>
+        <div>
+            {book.isbn_13 && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn_13[0]}-L.jpg`} alt={book.title} />}
+            {book.isbn_10 && !book.isbn_13 && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn_10[0]}-L.jpg`} alt={book.title} />}
+            {!book.covers && <div>cover not found!</div>}
+            <h2>{book.title}</h2>
+            <h2>Description</h2>
+            {bookDescription && bookDescription.totalItems === 0 && <div>Description not available!</div>}
+            {bookDescription && bookDescription.totalItems > 0 && <div>{bookDescription.items[0].volumeInfo.description}</div>}
+            {!bookDescription && <div>Loading</div>}
+            <h2>Critic Reviews</h2>
+            {!reviews && <h3>Loading</h3>}
+            {reviews && reviews.length === 0 && <h3>No reviews found!</h3>}
+            {reviews && reviews.length > 0 &&
+            reviews.map(review => <div>
+                review placeholder
+            </div>
+            )
+            }
+        </div>
     </div>
-    )
-    }
-    {}
-</div>
-</>)}
+ 
+)
+}
 
 }
 export default BookDetails
