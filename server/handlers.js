@@ -89,11 +89,12 @@ const updateUser = async (req, res) => {
         const updatedUser = req.body;
         const {_id} = req.body;
         const allUsers =  await db.collection("users").find().toArray();
-        console.log(allUsers)
+        
         const userCheck = allUsers.filter(obj => obj["_id"] === updatedUser["_id"]);
-        console.log(userCheck)
+        console.log('userCheck',userCheck[0])
+        console.log('updated user obj',updatedUser)
         const query = {_id :_id}
-        console.log(query)
+        
         if(userCheck.length > 0 && userCheck[0] !== updatedUser){
             const result = await db.collection("users").replaceOne(query, updatedUser, {upsert: true});
             console.log(result)

@@ -147,10 +147,10 @@ const reducer = (state, action) => {
         console.log('authenticated',isAuthenticated,'loading', isLoading,'user', user)
         const updateUser=()=>{
         
-            fetch('/add-user', {
-                method: 'POST',
+            fetch('/update-user', {
+                method: 'PATCH',
 
-                body: JSON.stringify({state}),
+                body: JSON.stringify(state),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 },
@@ -161,14 +161,47 @@ const reducer = (state, action) => {
         
         
      
-    // useEffect(()=>{
-    //     if(user && !isLoading){
+    useEffect(()=>{
+        if(state._id){
         
-    // updateUser();
-    // //     }
-    // },[state])
+    updateUser();
 
-
+    }},[state])
+    useEffect(()=>{
+        if(user){
+            try{
+            fetch('/find-user', {
+                        method: 'POST',
+        
+                        body: JSON.stringify({email:user.email}),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                        },
+                        })
+                .then((response) => response.json())
+                .then(data =>{ if(data.status === 200)
+                    {getUser(data.data)
+                    }else{
+                        fetch('/add-user', {
+                                    method: 'POST',
+                    
+                                    body: JSON.stringify({state}),
+                                    headers: {
+                                        'Content-type': 'application/json; charset=UTF-8',
+                                    },
+                                    })
+                            .then((response) => response.json())
+                            .then(data => getUser(data.data))
+                                console.log('in use effect')}
+                })
+                
+               
+            }catch(err){
+                    console.log(err)
+                }
+            }
+   
+            },[user])        
 //adds book to library: { bookId:123,book:{book obj},}
 const addBook = (data) => dispatch({type: 'add-book',payload:data});
 

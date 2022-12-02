@@ -44,7 +44,7 @@ if(book){
            if(book) {
             
             if(book.isbn_13){
-                fetch(`https://api.nytimes.com/svc/books/v3/reviews.json?isbn=${book.isbn_13}&api-key=${nytKey}`)
+                fetch(`https://api.nytimes.com/svc/books/v3/reviews.json?isbn=${book.isbn_13[0]}&api-key=${nytKey}`)
                     .then(res =>res.json())
                     .then(data => {
                         setReviews(data.results);
@@ -53,7 +53,7 @@ if(book){
                         )}
                         
                     if(book.isbn_10 && book.isnb_13 === undefined){
-                        fetch(`https://api.nytimes.com/svc/books/v3/reviews.json?isbn=${book.isbn_10}&api-key=${nytKey}`)
+                        fetch(`https://api.nytimes.com/svc/books/v3/reviews.json?isbn=${book.isbn_10[0]}&api-key=${nytKey}`)
                             .then(res =>res.json())
                             .then(data => {
                                 setReviews(data.results);

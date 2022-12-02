@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 const UserReview = ({bookId}) =>{
     const{actions: {addReview} } = useContext(UserContext)
     const reviewElem = document.getElementById('review');
-    const ratingElem = document.querySelector('input[name="rating"]:checked');
     const [review,setReview] = useState();
     const [rating,setRating] = useState();
     const handleReview = (e) => {
@@ -12,35 +11,23 @@ const UserReview = ({bookId}) =>{
             console.log(e.target.value)
             setReview(e.target.value)
         }
-        if(e.target === ratingElem){
-            console.log(e.target.value)
-            setRating(e.target.value)
+        else{
+            console.log(e.target.value);
+            setRating(e.target.value);
         }
     }
 
     console.log(review,rating)
 return(
 <div>
-    <fieldset>
-        <h4>Review</h4>
-        <div>
-            <input onClick = {handleReview} type="radio" id="1" name="rating" value="1"/>
-            <label htmlFor="1">1</label>
-        </div>
-        <div>
-            <input onClick = {handleReview} type="radio" id="2" name="rating" value="2"/>
-            <label htmlFor="2">2</label></div>
-        <div>
-            <input onClick = {handleReview} type="radio" id="3" name="rating" value="3"/>
-            <label htmlFor="3">3</label></div>
-        <div>
-            <input  onClick = {handleReview} type="radio" id="4" name="rating" value="4"/>
-            <label htmlFor="4">4</label></div>
-        <div>
-            <input onClick = {handleReview} type="radio" id="5" name="rating" value="5"/>
-            <label htmlFor="5">5</label></div>
-        
-    </fieldset>
+    <h3>review</h3>
+    <div>
+        <button  onClick ={handleReview} value="1">1</button>
+        <button onClick ={handleReview} value="2">2</button>
+        <button onClick ={handleReview} value="3">3</button>
+        <button onClick ={handleReview} value="4">4</button>
+        <button onClick ={handleReview} value="5">5</button>
+    </div>
     <textarea  onChange ={handleReview}id="review"  placeholder="write your review here...">
     
     </textarea>
