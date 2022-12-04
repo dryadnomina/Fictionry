@@ -47,34 +47,30 @@ const StyledSidebar = styled.aside`
     display:flex;
     flex-flow:row;
     width:25vw;
-    grid-column:1;
-   
 }
 a{
     display:flex;
     gap: 2vw;
     padding: 20px;
     font-weight: 700;
+    color:black;
     text-decoration:none;
-    border-radius:10px;
   }
   a.active {
-    color: #00A7E1;
+    color: #81EFD1;
 }
 ul{
     display:flex;
     flex-flow:row;
     list-style:none;
+    color:black;
 }
+
 button{
-        color:white;
-        font-weight:700;
-        padding:10px 20px;
-        border-radius: 10px;
-        background-color:#00A7E1;
+    background-color:#81EFD1;
 }
 a:hover{
-background-color:#00A7E1;
+background-color:#81EFD1;
 color: white;
 }
 `

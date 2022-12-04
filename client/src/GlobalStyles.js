@@ -7,8 +7,23 @@ dark teal - #49b6ce
 
 FIND COLOR SCHEME THAT WORKS WITH THESE:
 light teal - #99d6e4
-dark sand - #d9965b
+generic gradient: 
+#99D6E4
+#84E3E2
+#81EFD1
+#99F7B4
+#C4FA91
+#F9F871-yellow
 
+skip gradient: 
+#99D6E4
+#8CF8B8
+#52BF83
+#038951
+
+dark sand - #d9965b
+#FDA377 - light peach
+#653300-dark brown
 TO DO:
 ADD FANCY STYLING TO GETBOOKS BUTTON
 ADD NAV BAR COMPONENT--WILL CONTAIN EVERYTHING UNDER LOGIN HEADING--MAKE LOGIN HEADING DYNAMIC LIKE BUTTON
@@ -34,7 +49,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     background:white;
-    color:grey;
+    color:black;
     font-family: Sans-Serif;
   }
 
