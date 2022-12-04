@@ -50,6 +50,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     background:white;
     color:black;
+    
     font-family: Sans-Serif;
   }
 

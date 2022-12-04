@@ -77,7 +77,7 @@ console.log('filtered',filtered)
                         return(
                         <StyledListItem key={book.key}>
                             <div>
-                               <h4>{book.title}</h4>
+                                <h4>{book.title}</h4>
                                 <StyledImgWrapper>
                                 {book.isbn && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} alt='cover not found' /> }
                                 {!book.isbn && book.lccn && <img src={`https://covers.openlibrary.org/b/lccn/${book.lccn[0]}-M.jpg`} alt='cover not found' />}
@@ -159,7 +159,7 @@ img{
 const StyledListItem = styled.div`
 
 &{
-    box-shadow: inset 0.5em 0.5em gold, 12px 12px 2px 1px rgba(0, 0, 255, .2);;
+    box-shadow: inset 0.5em 0.5em gold, 12px 12px 2px 1px rgba(0, 0, 255, .2);
     display:flex;
     flex-flow:column;
     justify-content:center;
