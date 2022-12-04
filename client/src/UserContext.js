@@ -251,7 +251,7 @@ const getUser = (data)=>dispatch({type: 'get-user',payload:data});
 //clears user's Library
 const clearLibrary = () => {dispatch({type:'clear-library'})};
 //clears reviews
-const clearReviews = () => {dispatch({type:'clear-Reviews'})};
+const clearReviews = () => {dispatch({type:'clear-reviews'})};
 //delete specific review based on book id
 const deleteReview = (data) => dispatch({type: 'delete-review',payload:data});
 

@@ -6,7 +6,7 @@ import { Tab, Tabs, TabList, TabPanel} from "react-tabs"
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
 const Library = () =>{
-    const {state} = useContext(UserContext)
+    const {state,actions:{clearLibrary,clearReviews,deleteReview}} = useContext(UserContext)
     const navigate= useNavigate();
 
     if(state){
@@ -21,6 +21,7 @@ const Library = () =>{
     return(
         <StyledLibrary >
             <h1>Library</h1>
+            <button onClick={clearLibrary}>Clear Library</button>
             <Tabs>
                 <TabList>
                     <Tab>All Books</Tab>
@@ -121,13 +122,14 @@ const Library = () =>{
                 </TabPanel>
                 <TabPanel>
                 <h2>Your Book Reviews</h2>
+                {Object.values(state.reviews).length > 0 && <button onClick={clearReviews}>Clear all reviews</button>}
                 {reviewValues.length > 0 && reviewValues.map(review => 
                     
-                     <StyledReview>
-                     <p><span>title:</span> {review.title}</p>
-                     <p><span>rating:</span> {review.rating}</p>
-                    <p><span>review:</span> {review.review}</p>
-                    <button onClick = {() => { navigate(`/book/${review.bookId}`)} } > Book Details</button>
+                     <StyledReview key = {review.bookid}>
+                        <p><span>title:</span> {review.title}</p>
+                        <p><span>rating:</span> {review.rating}</p>
+                        <p><span>review:</span> {review.review}</p>
+                        <button onClick = {() => { navigate(`/book/${review.bookId}`)} } > Book Details</button>
                      </StyledReview>
                 )
                }
