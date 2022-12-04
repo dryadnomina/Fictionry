@@ -31,8 +31,8 @@ const {user, isLoading} = useAuth0();
                     </NavLink>
                     </>
                     }
-                   <LogoutButton/>
-                   <LoginButton/>
+                    <LogoutButton/>
+                    <LoginButton/>
                 </ul>
                 
         </StyledSidebar>
@@ -46,7 +46,7 @@ const StyledSidebar = styled.aside`
 &{
     display:flex;
     flex-flow:row;
-    width:25vw;
+    width:30vw;
 }
 a{
     display:flex;
@@ -61,11 +61,15 @@ a{
 }
 ul{
     display:flex;
+    justify-content:space-between;
     flex-flow:row;
     list-style:none;
     color:black;
 }
-
+li{
+    display:flex;
+    gap:0.5vw;
+}
 button{
     background-color:#81EFD1;
 }
