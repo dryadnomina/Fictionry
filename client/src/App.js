@@ -12,6 +12,7 @@ import GlobalStyles from './GlobalStyles';
 
 import {useAuth0} from '@auth0/auth0-react'
 import BookDetails from './BookDetails';
+import Sidebar from './Sidebar';
 
 const App = () => {
   const { isAuthenticated,isLoading,error } = useAuth0();
@@ -21,17 +22,15 @@ const App = () => {
     <Router>
     <GlobalStyles/>
     <Header/>
-      <main>
-      <h2>Login</h2>
-      <LoginButton/>
-      <LogoutButton/>
-    </main>
-  
+    <Sidebar/>
+
+ 
     {isAuthenticated && !isLoading &&
       <Routes>
       {/* • search all fiction books based on genre
         ◦ filters
         ◦ search bar */}
+         
         <Route path ="/"element={<Welcome/>}/>
         <Route path ="/search"element={<Search/>}/>
         <Route path ="/find-books"element={<BookFinder/>}/>
