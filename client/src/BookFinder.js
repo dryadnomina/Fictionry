@@ -7,7 +7,7 @@ const BookFinder = () => {
     const navigate = useNavigate();
 
     const {actions:{addBook,removeBook},state} = useContext(UserContext)
-    const test = document.getElementById('test')
+
     const [books,setBooks] = useState();
     const [filtered,setFiltered] = useState([]);
     const [results,setResults] = useState(null);
@@ -57,11 +57,7 @@ console.log('filtered',filtered)
     console.log('all books',books)
     return (
         <div>
-
-            <button onClick={() => navigate('/profile')}>Profile</button>
-            <button onClick={() => navigate('/search')}>Search</button>
-            <button onClick={() => navigate('/library')}>Library</button>
-            <button onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
+            <button id="" onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
             {books && <button onClick={() => searchByCategory('')}>see all books</button>}
             <h3>Genres</h3>
             {genres.map( genre =>  <button id= {genre} key={genre} onClick={ () => {

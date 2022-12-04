@@ -57,7 +57,7 @@ a{
     text-decoration:none;
   }
   a.active {
-    color: #81EFD1;
+    color:#52BF83;
 }
 ul{
     display:flex;
