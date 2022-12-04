@@ -8,7 +8,7 @@ import Welcome from './Welcome';
 import Search from './Search';
 import Library from './Library';
 import AuthorProfile from './AuthorProfile';
-import Logo from './Logo'
+import GlobalStyles from './GlobalStyles';
 
 import {useAuth0} from '@auth0/auth0-react'
 import BookDetails from './BookDetails';
@@ -17,8 +17,9 @@ const App = () => {
   const { isAuthenticated,isLoading,error } = useAuth0();
   
   return (
-    
+   
     <Router>
+    <GlobalStyles/>
     <Header/>
       <main>
       <h2>Login</h2>
