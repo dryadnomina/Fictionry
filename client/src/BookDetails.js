@@ -80,11 +80,11 @@ if(book && state){
         <div>
             {book.isbn_13 && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn_13[0]}-L.jpg`} alt={book.title} />}
             {book.isbn_10 && !book.isbn_13 && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn_10[0]}-L.jpg`} alt={book.title} />}
-            {!book.covers && <div>cover not found!</div>}
             <h2>{book.title}</h2>
             <h2>Description</h2>
+            {book.description && book.description.value}
             {bookDescription && bookDescription.totalItems === 0 && <div>Description not available!</div>}
-            {bookDescription && bookDescription.totalItems > 0 && <div>{bookDescription.items[0].volumeInfo.description}</div>}
+            {bookDescription && !book.description.value && bookDescription.totalItems > 0 && <div>{bookDescription.items[0].volumeInfo.description}</div>}
             {!bookDescription && <div>Loading</div>}
             <h2>Critic Reviews</h2>
             {!reviews && <h3>Loading</h3>}
@@ -103,7 +103,7 @@ if(book && state){
 
             
             </div>}
-            {!userReviews[bookId] && <UserReview bookId ={bookId}/> }
+            {!userReviews[bookId] && <UserReview bookId ={bookId} title={book.title} author= {book.authors[0]}/> }
     </div>
  
 )

@@ -1,7 +1,7 @@
 import { UserContext } from "./UserContext";
 import { useContext, useState } from "react";
 
-const UserReview = ({bookId}) =>{
+const UserReview = ({bookId,author,title}) =>{
     const{actions: {addReview} } = useContext(UserContext)
     const reviewElem = document.getElementById('review');
     const [review,setReview] = useState();
@@ -31,7 +31,7 @@ return(
     <textarea  onChange ={handleReview}id="review"  placeholder="write your review here...">
     
     </textarea>
-    <button disabled={review && rating === undefined? true : false} onClick={() => addReview({bookId:bookId,review:review,rating:rating})}>Submit</button>
+    <button disabled={review && rating === undefined? true : false} onClick={() => addReview({title:title,author:author, bookId:bookId,review:review,rating:rating,})}>Submit</button>
 </div>
 )
 }

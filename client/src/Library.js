@@ -124,6 +124,7 @@ const Library = () =>{
                 {reviewValues.length > 0 && reviewValues.map(review => 
                     
                      <StyledReview>
+                     <p><span>title:</span> {review.title}</p>
                      <p><span>rating:</span> {review.rating}</p>
                     <p><span>review:</span> {review.review}</p>
                     <button onClick = {() => { navigate(`/book/${review.bookId}`)} } > Book Details</button>

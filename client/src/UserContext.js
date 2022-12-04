@@ -135,7 +135,29 @@ const reducer = (state, action) => {
                 ...state,
             }
         }
+//clear library
+        case 'clear-library':{
+        
+           state.library = {}
+            return {
+                ...state,
+            }
+        }
+        case 'clear-reviews':{
+        
+            state.reviews = {}
+             return {
+                 ...state,
+             }
+         }
 
+         case 'delete-review':{
+            const {payload} = action
+            delete state.reviews[payload.bookId]
+            return {
+                ...state,
+            }
+        }
         default:
         throw new Error(`Unrecognized action: ${action.type}`);
     }
@@ -224,10 +246,14 @@ const markAsCurrentlyReading = (data) => dispatch({type: 'mark-as-currently-read
 //adds selected book to wishlist
 const addToWishlist = (data) => dispatch({type: 'add-to-wishlist',payload:data});
 
-const getUser = (data)=>dispatch({type: 'get-user',payload:data})
+const getUser = (data)=>dispatch({type: 'get-user',payload:data});
 
 //clears user's Library
-const clearLibrary = () => {dispatch({type:'clear-library'})}
+const clearLibrary = () => {dispatch({type:'clear-library'})};
+//clears reviews
+const clearReviews = () => {dispatch({type:'clear-Reviews'})};
+//delete specific review based on book id
+const deleteReview = (data) => dispatch({type: 'delete-review',payload:data});
 
 console.log('state',state)
 
@@ -247,7 +273,9 @@ console.log('state',state)
                 markAsCurrentlyReading,
                 addToWishlist,
                 addReview,
-                clearLibrary}
+                clearLibrary,
+                clearReviews,
+                deleteReview}
                 ,state
         }}
         >
