@@ -8,6 +8,8 @@ import Welcome from './Welcome';
 import Search from './Search';
 import Library from './Library';
 import AuthorProfile from './AuthorProfile';
+import Logo from './Logo'
+
 import {useAuth0} from '@auth0/auth0-react'
 import BookDetails from './BookDetails';
 
@@ -23,6 +25,7 @@ const App = () => {
       <LoginButton/>
       <LogoutButton/>
     </main>
+  
     {isAuthenticated && !isLoading &&
       <Routes>
       {/* • search all fiction books based on genre
