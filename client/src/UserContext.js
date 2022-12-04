@@ -52,10 +52,12 @@ const reducer = (state, action) => {
 
             case 'add-review' : {
     
-                const {payload:{bookId,rating,review}} = action
+                const {payload:{bookId,rating,review,title,author}} = action
                 const reviews = state.reviews
 
                 const newReview = {
+                    title: title,
+                    author:author,
                     bookId:bookId, 
                     rating:rating,
                     review:review,
