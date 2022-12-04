@@ -1,7 +1,7 @@
 import { useState,useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
-
+import styled from "styled-components";
 const BookFinder = () => {
     
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const BookFinder = () => {
 const searchByCategory = (category) =>{
 
     const matches = [];
-    books.map(
+    books.forEach(
             book =>{
                 const subject = book.subject;
                 const matchArr = subject.filter(str => str.includes(category));
@@ -57,7 +57,7 @@ console.log('filtered',filtered)
     console.log('all books',books)
     return (
         <div>
-            <button id="" onClick={() => getBooks()}>{books? 'shuffle':'get books'}</button>
+            <StyledButton id="get-books" onClick={() => getBooks()}>{books? 'shuffle':'get books'}</StyledButton>
             {books && <button onClick={() => searchByCategory('')}>see all books</button>}
             <h3>Genres</h3>
             {genres.map( genre =>  <button id= {genre} key={genre} onClick={ () => {
@@ -75,29 +75,32 @@ console.log('filtered',filtered)
                     books.map(book =>{
 
                         return(
-                        <div key={book.key}>
-                            <p>{book.title}</p>
-                            {book.isbn && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} /> }
-                            {!book.isbn && book.lccn && <img src={`https://covers.openlibrary.org/b/lccn/${book.lccn[0]}-M.jpg`} />}
-                            <p>{book.author_name && book['author_name']
-                            .map((author,index) => 
-                            <span key={author + index} id={author} onClick = {() => {
-                                    navigate(`/author/${book["author_key"][index]}`)
-                            }}>
-                                {author}
-                            </span>)}</p>
-                            <p>{book.isbn && book.isbn[0]}</p>
+                        <StyledListItem key={book.key}>
                             <div>
-                            {!state.library[book.edition_key[0]] &&  <button onClick={() => {
-                                    addBook({bookId:book.edition_key[0],book: book})
-                                }}>add to library</button>}
-                                {state.library[book.edition_key[0]] && <button onClick={() => {
-                                    removeBook({bookId:book.edition_key[0]})
-                                }}>remove from library</button>}
-                                
+                               <h4>{book.title}</h4>
+                                <StyledImgWrapper>
+                                {book.isbn && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} alt='cover not found' /> }
+                                {!book.isbn && book.lccn && <img src={`https://covers.openlibrary.org/b/lccn/${book.lccn[0]}-M.jpg`} alt='cover not found' />}
+                                </StyledImgWrapper>
+                                <p>{book.author_name && book['author_name']
+                                .map((author,index) =>
+                                <span key={author + index} id={author} onClick = {() => {
+                                        navigate(`/author/${book["author_key"][index]}`)
+                                }}>
+                                    {author}
+                                </span>)}</p>
+                                <div>
+                                {!state.library[book.edition_key[0]] &&  <button onClick={() => {
+                                        addBook({bookId:book.edition_key[0],book: book})
+                                    }}>add to library</button>}
+                                    {state.library[book.edition_key[0]] && <button onClick={() => {
+                                        removeBook({bookId:book.edition_key[0]})
+                                    }}>remove from library</button>}
+                                    <button onClick = {() => { navigate(`/book/${book.edition_key[0]}`)} } > Book Details</button>
+                                </div>
                             </div>
-                            <button onClick = {() => { navigate(`/book/${book.edition_key[0]}`)} } > Book Details</button>
-                        </div>)
+                        </StyledListItem>
+                        )
                     }): null
 
                 }
@@ -107,20 +110,32 @@ console.log('filtered',filtered)
                 {filtered.length > 0 && results === true&& filtered.map(book =>{
 
                         return(
-                        <div key={book.key}>
-                            <img src="" alt="" />
-                            <p>{book.title}</p>
-                            <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} />
-                            <p>{book.author_name && book['author_name']
-                            .map((author,index) => 
-                            <span key={author + index} id={author} onClick = {() => {
-                                    navigate(`/author/${book["author_key"][index]}`)
-                            }}>
-                                {author}
-                            </span>)}</p>
-                            <p>{book.isbn && book.isbn[0]}</p>
-                            <button onClick = {() => { navigate(`/book/${book.edition_key[0]}`)} } > Book Details</button>
-                        </div>)
+                            <StyledListItem key={book.key}>
+                            <div>
+                                <h4>{book.title}</h4>
+                                <StyledImgWrapper>
+                                {book.isbn && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} alt='cover not found' /> }
+                                {!book.isbn && book.lccn && <img src={`https://covers.openlibrary.org/b/lccn/${book.lccn[0]}-M.jpg`} alt='cover not found' />}
+                                </StyledImgWrapper>
+                                <p>{book.author_name && book['author_name']
+                                .map((author,index) =>
+                                <span key={author + index} id={author} onClick = {() => {
+                                        navigate(`/author/${book["author_key"][index]}`)
+                                }}>
+                                    {author}
+                                </span>)}</p>
+                                <div>
+                                {!state.library[book.edition_key[0]] &&  <button onClick={() => {
+                                        addBook({bookId:book.edition_key[0],book: book})
+                                    }}>add to library</button>}
+                                    {state.library[book.edition_key[0]] && <button onClick={() => {
+                                        removeBook({bookId:book.edition_key[0]})
+                                    }}>remove from library</button>}
+                                    <button onClick = {() => { navigate(`/book/${book.edition_key[0]}`)} } > Book Details</button>
+                                </div>
+                            </div>
+                        </StyledListItem>
+                        )
                     })
                     }
                 {!books && <h3>Click get books to find your next read!</h3>}
@@ -130,3 +145,45 @@ console.log('filtered',filtered)
 }
 
 export default BookFinder
+
+const StyledImgWrapper = styled.div`
+
+img{
+    width:180px;
+    height:297px;
+    border:1px solid black;
+}
+
+`
+
+const StyledListItem = styled.div`
+
+&{
+    box-shadow: inset 0.5em 0.5em gold, 12px 12px 2px 1px rgba(0, 0, 255, .2);;
+    display:flex;
+    flex-flow:column;
+    justify-content:center;
+    margin-bottom:5px;
+    align-items:center;
+    padding-bottom:10px;
+}
+p > span{
+    margin-right:5px;
+    background-color:#FDA377;
+    font-weight:700;
+    padding:10px;
+    color:white;
+    cursor:pointer;
+}
+`
+
+const StyledButton = styled.button`
+&{
+    background-color:#99d6e4;
+}
+&:hover{
+    background-color:#81EFD1;
+    color: white;
+}
+
+`
