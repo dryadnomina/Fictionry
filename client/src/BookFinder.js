@@ -2,6 +2,8 @@ import { useState,useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import styled from "styled-components";
+
+//gets 100 random books for user to read,user canfilter through books basedd oon subject or click shuffle too get another 100 randomly selected books
 const BookFinder = () => {
     
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ const BookFinder = () => {
     const genres = ['romance','fantasy','mystery','action','adventure','comedy','horror','drama','tragedy','science-fiction']
     const subgenres = ['school life','supernatural','martial arts','slice of life','sports','historical','psychological']
 
+    //filters books based on selected category
 const searchByCategory = (category) =>{
 
     const matches = [];

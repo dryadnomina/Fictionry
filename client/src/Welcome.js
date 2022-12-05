@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "./UserContext";
 
+//Welcomes user byy name
 const Welcome = () =>{
 const {user} = useAuth0();
 const navigate = useNavigate();
-const {actions:{getUser,addUser},state} = useContext(UserContext);
 
     return(
         <StyledWelcome>

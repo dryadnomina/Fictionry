@@ -2,10 +2,7 @@ import {createGlobalStyle} from "styled-components"
 /*
 fictionry colours:
 light blue - #d5f6ff
-teal - #71c6d9
-dark teal - #49b6ce
 
-FIND COLOR SCHEME THAT WORKS WITH THESE:
 light teal - #99d6e4
 generic gradient: 
 #99D6E4

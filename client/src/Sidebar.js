@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom"
 import styled from "styled-components"
 import LogoutButton from "./logoutButton"
-import {FiBell as Bell} from "react-icons/fi"
-import {FiHome as Home} from "react-icons/fi"
 import {FiBookOpen} from "react-icons/fi"
 import { FiBook as Book } from "react-icons/fi"
 import { FiSearch as Search } from "react-icons/fi"
@@ -10,6 +8,8 @@ import {FiUser as User} from "react-icons/fi"
 
 import { useAuth0 } from "@auth0/auth0-react"
 import LoginButton from "./LoginButton"
+
+//navigation for main pages of website: book finder,profile,library and search
 const Sidebar =()=>{
 const {user, isLoading} = useAuth0();
     return(

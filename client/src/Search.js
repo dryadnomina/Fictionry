@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { StyledList } from "./BookFinder";
 import { StyledImgWrapper } from "./BookFinder";
 import styled from "styled-components";
+
+//user can searh openLibrary based on inputted query
 const Search = () => {
     const {state,actions:{addBook,removeBook}} =  useContext(UserContext)
     const navigate = useNavigate();

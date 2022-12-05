@@ -4,6 +4,9 @@ import { useEffect } from "react";
 
 import { v4 as uuid } from 'uuid';
 import { StyledList } from "./BookFinder";
+
+//Lists author's name and works
+
 const AuthorProfile = () =>{
 
 const {authorId} = useParams();
