@@ -4,10 +4,12 @@ import { useState } from "react";
 import { UserContext } from "./UserContext";
 import UserReview from "./UserReview";
 import styled from "styled-components";
+
+//list the information of a specific book, Contains book information, critique reviews, and user reviews of book
 const BookDetails = () =>{
 const nytKey = process.env.REACT_APP_BOOKS_API_KEY
-const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
-const {state,actions:{addBook}} = useContext(UserContext)
+
+const {state,actions:{addBook,removeBook}} = useContext(UserContext)
 const {bookId} = useParams();
 
 const [book,setBook] = useState()
@@ -70,7 +72,7 @@ if(book){
 
 if(book && bookDescription && state){
     const userReviews = state.reviews;
-
+    const library =state.library;
     return (
     
     <StyledBookDetails>
@@ -113,6 +115,15 @@ if(book && bookDescription && state){
             </div>
             )
             }
+
+            {  <div>
+                                {library[bookId] &&  <button onClick={() => {
+                                        addBook({bookId:bookId,book: book})
+                                    }}>add to library</button>}
+                                    {library[bookId] && <button onClick={() => {
+                                        removeBook({bookId:bookId})
+                                    }}>remove from library</button>}
+                                </div>}
         </div>
         <h3>Your Reviews</h3>
         {userReviews[bookId] && <div>
