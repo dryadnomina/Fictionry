@@ -122,15 +122,16 @@ const Library = () =>{
                 </TabPanel>
                 <TabPanel>
                 <h2>Your Book Reviews</h2>
-                {Object.values(state.reviews).length > 0 && <button onClick={clearReviews}>Clear all reviews</button>}
+                {reviewValues.length > 0 && <button onClick={clearReviews}>Clear all reviews</button>}
+                {reviewValues.length === 0 && <p>No reviews Found</p>}
                 {reviewValues.length > 0 && reviewValues.map(review => 
                     
-                     <StyledReview key = {review.bookid}>
+                    <StyledReview key = {review.bookid}>
                         <p><span>title:</span> {review.title}</p>
                         <p><span>rating:</span> {review.rating}</p>
                         <p><span>review:</span> {review.review}</p>
                         <button onClick = {() => { navigate(`/book/${review.bookId}`)} } > Book Details</button>
-                     </StyledReview>
+                    </StyledReview>
                 )
                }
                 </TabPanel>

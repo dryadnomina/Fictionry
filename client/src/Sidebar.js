@@ -47,6 +47,7 @@ const StyledSidebar = styled.aside`
     display:flex;
     flex-flow:row;
     width:30vw;
+    justify-content:center;
 }
 a{
     display:flex;
