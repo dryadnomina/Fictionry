@@ -23,7 +23,7 @@ const addUser = async (req, res) => {
         const newUser = {...req.body,_id:uuidv4(), library:{}, reviews:{}};
 
         const users =  await db.collection("users").find().toArray();
-        console.log(users)
+        
         const userExists = users.filter(obj => obj.email === newUser.email);
 
         if(userExists.length === 0){
@@ -49,15 +49,14 @@ const getUser = async (req, res) => {
 
     const client =  new MongoClient(MONGO_URI,options);
     const {email} = req.body;
-    console.log(req.body)
-    console.log(email)
+   
     try {
 
         await client.connect();
         const db = client.db('Fictionry');
 
         const users =  await db.collection("users").find().toArray();
-        console.log(users)
+        
         const userExists = users.filter(obj => obj.email === email);
 
         if(userExists.length > 0){
@@ -91,8 +90,8 @@ const updateUser = async (req, res) => {
         const allUsers =  await db.collection("users").find().toArray();
         
         const userCheck = allUsers.filter(obj => obj["_id"] === updatedUser["_id"]);
-        console.log('userCheck',userCheck[0])
-        console.log('updated user obj',updatedUser)
+        // console.log('userCheck',userCheck[0])
+        // console.log('updated user obj',updatedUser)
         const query = {_id :_id}
         
         if(userCheck.length > 0 && userCheck[0] !== updatedUser){
