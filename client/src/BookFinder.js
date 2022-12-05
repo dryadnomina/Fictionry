@@ -38,8 +38,6 @@ const searchByCategory = (category) =>{
 }
 
 
-console.log('filtered',filtered)
-
 //fetches 100 random fiction books from openlibrary
     const getBooks = ()=>{  
         const getRandomNum = () =>{
@@ -54,7 +52,7 @@ console.log('filtered',filtered)
         catch(err){console.log(err)}
         
         }
-    console.log('all books',books)
+    // console.log('all books',books)
     return (
         <div>
             <StyledButton id="get-books" onClick={() => getBooks()}>{books? 'shuffle':'get books'}</StyledButton>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 //user's profile page
 const Profile = () => {
     const { user, isAuthenticated } = useAuth0();
-    console.log(user)
+    // console.log(user)
 return(
     isAuthenticated && (
         <StyledProfile>

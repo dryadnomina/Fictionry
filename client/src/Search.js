@@ -14,7 +14,7 @@ const Search = () => {
     const handleSearchQuery = (e) => {
     
         if(e.target.value){
-            console.log(e.target.value)
+            // console.log(e.target.value)
             setQuery(e.target.value)
         }
     }
@@ -22,7 +22,8 @@ const Search = () => {
         if(query){
         fetch(`http://openlibrary.org/search.json?q=${query}&limit=20&subject=fiction`)
         .then(res => res.json())
-        .then(data => {console.log(data);
+        .then(data => {
+            // console.log(data);
         setResults(data.docs);
         })
         }

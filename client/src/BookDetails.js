@@ -50,7 +50,8 @@ if(book){
                     .then(res =>res.json())
                     .then(data => {
                         setReviews(data.results);
-                        console.log(data);}
+                        // console.log(data);
+                    }
                         
                         )}
                         
@@ -59,7 +60,7 @@ if(book){
                             .then(res =>res.json())
                             .then(data => {
                                 setReviews(data.results);
-                                console.log(data);}
+                                // console.log(data);}
                         
                         )
                         }

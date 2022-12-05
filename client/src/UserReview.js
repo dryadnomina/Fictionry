@@ -10,16 +10,16 @@ const UserReview = ({bookId,author,title}) =>{
     const [rating,setRating] = useState();
     const handleReview = (e) => {
         if(e.target === reviewElem){
-            console.log(e.target.value)
+            
             setReview(e.target.value)
         }
         else{
-            console.log(e.target.value);
+            
             setRating(e.target.value);
         }
     }
 
-    console.log(review,rating)
+    // console.log(review,rating)
 return(
 <StyledReview>
     <h3>Leave a Review</h3>

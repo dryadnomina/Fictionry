@@ -216,7 +216,7 @@ const reducer = (state, action) => {
                                     })
                             .then((response) => response.json())
                             .then(data => getUser(data.data))
-                                console.log('in use effect')}
+                            }
                 })
 
             }catch(err){
