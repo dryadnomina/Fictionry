@@ -11,7 +11,6 @@ express()
 
     .post('/add-user',addUser)
     .post('/find-user',getUser)
-    // .get('/get-book/:bookId',getBook)
     .patch('/update-user',updateUser)
     .listen(port, () => {
     console.log(`Listening on port ${port}`)

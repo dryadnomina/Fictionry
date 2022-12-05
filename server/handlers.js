@@ -96,7 +96,7 @@ const updateUser = async (req, res) => {
         
         if(userCheck.length > 0 && userCheck[0] !== updatedUser){
             const result = await db.collection("users").replaceOne(query, updatedUser, {upsert: true});
-            console.log(result)
+            // console.log(result)
             res.status(200).json({status:200, message: 'user updated'})
         }
         if(userCheck.length === 0){

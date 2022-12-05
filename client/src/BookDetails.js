@@ -59,7 +59,7 @@ if(book){
                         fetch(`https://api.nytimes.com/svc/books/v3/reviews.json?isbn=${book.isbn_10[0]}&api-key=${nytKey}`)
                             .then(res =>res.json())
                             .then(data => {
-                                setReviews(data.results);
+                                setReviews(data.results);}
                                 // console.log(data);}
                         
                         )
@@ -110,6 +110,7 @@ if(book && bookDescription && state){
             <h3>Critic Reviews</h3>
             {!reviews && <h3>Loading</h3>}
             {reviews && reviews.length === 0 && <h3>No reviews found!</h3>}
+            {/* Critic review are a work in progress */}
             {reviews && reviews.length > 0 &&
             reviews.map(review => <div>
                 review placeholder
