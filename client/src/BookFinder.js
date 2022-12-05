@@ -182,6 +182,16 @@ display:flex;
 gap:5px;
 
 }
+a{
+    text-decoration:none;
+    color:black;
+    font-weight:700;
+    padding:10px;
+}
+a:hover{
+    background-color:#81EFD1;
+    color: white;
+}
 `
 
 const StyledButton = styled.button`

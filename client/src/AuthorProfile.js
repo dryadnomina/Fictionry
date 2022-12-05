@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+
+import { StyledList } from "./BookFinder";
 const AuthorProfile = () =>{
 
 const {authorId} = useParams();
@@ -43,10 +45,10 @@ return(
     <h2>Books by Author</h2>
     {booksByAuthor && booksByAuthor.entries.map(
         book => 
-        <div key ={book.key}>
-            <p>{book.title}</p>
+        <StyledList>
+             <h3>{book.title}</h3>
             <p><a href={`https://openlibrary.org${book.key}`} target="_blank" rel="noopener noreferrer">See more info at Open Library</a></p>
-        </div>
+        </StyledList>
     )}
     {!booksByAuthor && <h3>Loading</h3>}
 
