@@ -34,7 +34,7 @@ return(
         <>
     <StyledSearch>
         <input onChange={handleSearchQuery} id="search" type="text" placeholder="search..." />
-        <button  disabled = {query === null|| undefined && true} onClick={() => {
+        <button  disabled = {query === null|| undefined? true : false} onClick={() => {
             if(query !== null || undefined) {
                 handleSearch(query)
                 }
@@ -50,8 +50,8 @@ return(
     <StyledList key={book.key}>
                                 <p>{book.title}</p>
                                 <StyledImgWrapper>
-                                    {book.isbn && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} /> }
-                                    {!book.isbn && book.lccn && <img src={`https://covers.openlibrary.org/b/lccn/${book.lccn[0]}-M.jpg`} />}
+                                    {book.isbn && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`} alt={book.title} /> }
+                                    {!book.isbn && book.lccn && <img src={`https://covers.openlibrary.org/b/lccn/${book.lccn[0]}-M.jpg`} alt={book.title}/>}
                                 </StyledImgWrapper>
                                 <p>{book.author_name && book['author_name']
                                 .map((author,index) => 

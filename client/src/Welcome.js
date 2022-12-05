@@ -1,8 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react"
-import { useContext,useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "./UserContext";
+
 
 //Welcomes user byy name
 const Welcome = () =>{
