@@ -73,7 +73,7 @@ console.log('book desc',bookDescription)
 
 if(book && bookDescription && state){
     const userReviews = state.reviews;
-    console.log(book.description)
+
     return (
     
     <div>

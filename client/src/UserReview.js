@@ -1,6 +1,8 @@
 import { UserContext } from "./UserContext";
 import { useContext, useState } from "react";
+import styled from "styled-components";
 
+//user can rate book out of 5 and leave a review
 const UserReview = ({bookId,author,title}) =>{
     const{actions: {addReview} } = useContext(UserContext)
     const reviewElem = document.getElementById('review');
@@ -19,8 +21,8 @@ const UserReview = ({bookId,author,title}) =>{
 
     console.log(review,rating)
 return(
-<div>
-    <h3>review</h3>
+<StyledReview>
+    <h3>Leave Review</h3>
     <div>
         <button  onClick ={handleReview} value="1">1</button>
         <button onClick ={handleReview} value="2">2</button>
@@ -32,8 +34,30 @@ return(
     
     </textarea>
     <button disabled={review && rating === undefined? true : false} onClick={() => addReview({title:title,author:author, bookId:bookId,review:review,rating:rating,})}>Submit</button>
-</div>
+</StyledReview>
 )
 }
 
 export default UserReview
+
+const StyledReview = styled.div`
+div{
+    display:flex;
+}
+&{
+    display:flex;
+    flex-flow:column;
+}
+textarea{
+    height:10vh;
+    font-size: 15px;
+}
+div > button{
+    padding:10px;
+    border-radius:5px;
+}
+button:hover{
+    background-color:#81EFD1;
+    color: white;
+    }
+`
