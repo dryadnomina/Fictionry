@@ -22,7 +22,7 @@ const UserReview = ({bookId,author,title}) =>{
     console.log(review,rating)
 return(
 <StyledReview>
-    <h3>Leave Review</h3>
+    <h3>Leave a Review</h3>
     <div>
         <button  onClick ={handleReview} value="1">1</button>
         <button onClick ={handleReview} value="2">2</button>

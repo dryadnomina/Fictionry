@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { useState } from "react";
 import { UserContext } from "./UserContext";
 import UserReview from "./UserReview";
-
+import styled from "styled-components";
 const BookDetails = () =>{
 const nytKey = process.env.REACT_APP_BOOKS_API_KEY
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -76,22 +76,40 @@ if(book && bookDescription && state){
 
     return (
     
-    <div>
-        <h1>book details</h1>
+    <StyledBookDetails>
+        <h1>{book.title}</h1>
         <div>
             {book.isbn_13 && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn_13[0]}-L.jpg`} alt={book.title} />}
             {book.isbn_10 && !book.isbn_13 && <img src={`https://covers.openlibrary.org/b/isbn/${book.isbn_10[0]}-L.jpg`} alt={book.title} />}
-            <h2>{book.title}</h2>
-            <h2>Description</h2>
-            {bookDescription.totalItems === 0 &&<div>Description not available!</div>}
+            <h3>Details</h3>
+            {book.isbn_10 && <p>isbn-10: {book.isbn_10[0]}</p>}
+            {book.isbn_13 && <p>isbn-13: {book.isbn_13[0]}</p>}
+            {book.number_of_pages && <p>Number of pages: {book.number_of_pages}</p>}
+            {book.publish_date && <p>Published on: {book.publish_date}</p>}
+            { book.publishers && <StyledList >
+                
+                {book.publishers && book.publishers.map(
+                    (publisher) => <span key={publisher}>{publisher}</span>
+                )}
+            </StyledList>}
+            <h3>Subjects</h3>
+            <StyledSubjects >
+                
+                    {book.subjects && book.subjects.map(
+                        subject => <span key={subject}>{subject}</span>
+                    )}
+            </StyledSubjects>
+            <h3>Description</h3>
+            {bookDescription.totalItems === 0 && book.description === undefined &&<div>Description not available!</div>}
+            {book.description && book.description.value &&  <div>{book.description.value}</div> } 
             {book.description === undefined && 
             bookDescription.totalItems > 0 &&
             bookDescription.items[0].volumeInfo.description !== undefined 
             && <div>{bookDescription.items[0].volumeInfo.description}</div>}
             {book.description !== undefined && 
-            bookDescription.totalItems == 0 && <div>{book.description}</div>}
+            bookDescription.totalItems == 0 && <div>{book.description.value}</div>}
             {!bookDescription && <div>Loading</div>}
-            <h2>Critic Reviews</h2>
+            <h3>Critic Reviews</h3>
             {!reviews && <h3>Loading</h3>}
             {reviews && reviews.length === 0 && <h3>No reviews found!</h3>}
             {reviews && reviews.length > 0 &&
@@ -101,18 +119,71 @@ if(book && bookDescription && state){
             )
             }
         </div>
-        <h2>Your Reviews</h2>
+        <h3>Your Reviews</h3>
         {userReviews[bookId] && <div>
-            <p>{userReviews[bookId]["review"]}</p>
-            <p>{userReviews[bookId]["rating"]}/5</p>
+            <StyledReview>
+                <p>Review: {userReviews[bookId]["review"]}</p>
+                <p>Rating: {userReviews[bookId]["rating"]}/5</p>
+            </StyledReview>
 
             
             </div>}
             {!userReviews[bookId] && <UserReview bookId ={bookId} title={book.title} author= {book.authors[0]}/> }
-    </div>
+    </StyledBookDetails>
  
 )
 }
 
 }
 export default BookDetails
+
+const StyledBookDetails =styled.div`
+&{
+    display:flex;
+    flex-flow:column;
+    align-self:center;
+}
+img{
+    height:500px;
+    width:333px; 
+    border:solid black 1px;
+}
+`
+const StyledSubjects =styled.div`
+
+&{
+    display:grid;
+    grid-auto-rows: auto;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+}
+span{
+   
+    background-color:#FDA377;
+    padding:10px;
+    color:white;
+}`
+
+const StyledList = styled(StyledSubjects)`
+span{
+    background-color:#81EFD1;
+}
+
+`
+const StyledReview =styled.div`
+&{
+    background-color:#81EFD1;
+    color: white;
+    padding:10px;
+    border-radius:5px;
+    box-shadow:12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+
+
+
+p{
+    color:white;
+    font-weight:700;
+    border-bottom:solid white 3px;
+}
+`
