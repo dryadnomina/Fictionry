@@ -2,9 +2,11 @@ import { UserContext } from "./UserContext"
 import { useContext } from "react"
 import LibraryListActions from "./LibraryListActions"
 import { Tab, Tabs, TabList, TabPanel} from "react-tabs"
-
+import { v4 as uuid } from 'uuid';
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
+
+//Lists all of users books that are currently in library, and can look at specific lists by clicking on the tab
 const Library = () =>{
     const {state,actions:{clearLibrary,clearReviews,deleteReview}} = useContext(UserContext)
     const navigate= useNavigate();
@@ -12,8 +14,8 @@ const Library = () =>{
     if(state){
     const library = state.library;
     const reviews = state.reviews;
-    console.log(library)
-    console.log(state)
+    // console.log(library)
+    // console.log(state)
     const libraryKeys = Object.keys(library)
     const libraryValues = Object.values(library)
     const reviewValues = Object.values(reviews)
@@ -36,11 +38,11 @@ const Library = () =>{
                 <h2>All Books</h2>
                 {libraryKeys.length > 0 && 
 
-                    libraryKeys.map( (key) => 
+                    libraryKeys.map( (key,index) => 
                     
-                        <StyledListItem>
+                        <StyledListItem key ={uuid()}>
                             <p>{library[key].book.title}</p>
-                            <LibraryListActions bookId = {key} key ={key}/>
+                            <LibraryListActions bookId = {key} key ={uuid()}/>
                         </StyledListItem>
                         )
                         
@@ -55,9 +57,9 @@ const Library = () =>{
                     Object.values(library).map(book => {
                         if( book.isFavourite === true){
                             return (
-                                    <StyledListItem>
+                                    <StyledListItem key ={uuid()}>
                                     <h4>{book.book.title}</h4>
-                                        <LibraryListActions bookId = {book.bookId} key ={book.bookId}/>
+                                        <LibraryListActions bookId = {book.bookId}/>
                                     </StyledListItem>
                             )
                             }
@@ -73,9 +75,9 @@ const Library = () =>{
                 
                 Object.values(library).map(book => {
                     if( book.isRead === true){
-                        return  ( <StyledListItem>
+                        return  ( <StyledListItem key ={uuid()}>
                                 <h4>{book.book.title}</h4>
-                                <LibraryListActions bookId = {book.bookId} key ={book.bookId}/>
+                                <LibraryListActions bookId = {book.bookId}/>
                             </StyledListItem>)
                         }
                     }
@@ -91,9 +93,9 @@ const Library = () =>{
                 libraryValues.map(book => {
                     if( book.isCurrentlyRead === true){
                         return  ( 
-                        <StyledListItem>
+                        <StyledListItem key ={uuid()}>
                                 <h4>{book.book.title}</h4>
-                                <LibraryListActions bookId = {book.bookId} key ={book.bookId}/>
+                                <LibraryListActions bookId = {book.bookId} />
                             </StyledListItem>
                             )
                         }
@@ -109,9 +111,9 @@ const Library = () =>{
                 libraryValues.map(book => {
                     if( book.isWishlist === true){
                         return  (
-                            <StyledListItem>
+                            <StyledListItem key ={uuid()}>
                             <h4>{book.book.title}</h4>
-                                <LibraryListActions bookId = {book.bookId} key ={book.bookId}/>
+                                <LibraryListActions bookId = {book.bookId} />
                             </StyledListItem>
                         )
                         }
@@ -126,11 +128,12 @@ const Library = () =>{
                 {reviewValues.length === 0 && <p>No reviews Found</p>}
                 {reviewValues.length > 0 && reviewValues.map(review => 
                     
-                    <StyledReview key = {review.bookid}>
+                    <StyledReview key = {uuid()}>
                         <p><span>title:</span> {review.title}</p>
-                        <p><span>rating:</span> {review.rating}</p>
+                        <p><span>rating:</span> {review.rating}/5</p>
                         <p><span>review:</span> {review.review}</p>
                         <button onClick = {() => { navigate(`/book/${review.bookId}`)} } > Book Details</button>
+                        <button onClick = {() => {deleteReview(review.bookId)} } > Delete Review</button>
                     </StyledReview>
                 )
                }

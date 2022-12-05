@@ -1,6 +1,5 @@
 import {createContext, useEffect, useReducer} from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useState } from 'react';
 
 export const UserContext = createContext();
  
@@ -9,8 +8,6 @@ const initialState = {
     library:{},
     reviews:{}
 }
-
-
 
 
 const reducer = (state, action) => {
@@ -49,7 +46,7 @@ const reducer = (state, action) => {
             library[bookId] = newBook;
             return {...state}
             }
-
+//adds review to review object
             case 'add-review' : {
     
                 const {payload:{bookId,rating,review,title,author}} = action
@@ -67,7 +64,7 @@ const reducer = (state, action) => {
                 return {...state}
                 }
         
-
+//toggles favourites
         case 'modify-favourites' : {
     
             
@@ -82,7 +79,7 @@ const reducer = (state, action) => {
         }
         
         }
-
+//marks book as read
         case 'mark-as-read' : {
     
             
@@ -97,7 +94,7 @@ const reducer = (state, action) => {
         }
         
         }
-
+//marks book as currently read
         case 'mark-as-currently-reading' : {
     
             
@@ -112,7 +109,7 @@ const reducer = (state, action) => {
         }
         
         }
-
+//adds book to wishlist
         case 'add-to-wishlist' : {
     
             
@@ -138,20 +135,21 @@ const reducer = (state, action) => {
 //clear library
         case 'clear-library':{
         
-           state.library = {}
+            state.library = {}
             return {
                 ...state,
             }
         }
+        //clears all reviews
         case 'clear-reviews':{
-        
-            state.reviews = {}
-             return {
-                 ...state,
-             }
-         }
-
-         case 'delete-review':{
+            
+                state.reviews = {}
+                return {
+                    ...state,
+                }
+            }
+//deletes specific review based on id
+        case 'delete-review':{
             const {payload} = action
             delete state.reviews[payload.bookId]
             return {
@@ -164,11 +162,11 @@ const reducer = (state, action) => {
     }
     
     export const UserProvider = ({ children }) => {
-        const { isAuthenticated, isLoading, user} = useAuth0();
-        const [email,setEmail] = useState();
+        const {user} = useAuth0();
         
         const [state, dispatch] = useReducer(reducer, initialState);
-        console.log('authenticated',isAuthenticated,'loading', isLoading,'user', user)
+        // console.log('authenticated',isAuthenticated,'loading', isLoading,'user', user)
+        //updates user when state changes
         const updateUser=()=>{
         
             fetch('/update-user', {
@@ -180,17 +178,19 @@ const reducer = (state, action) => {
                 },
                 })
                 .then((response) => response.json())
-                .then((json) => console.log(json));
+                // .then((json) => console.log(json));
             }
         
         
-     
+     //will only update state if user's id is present to prevent accidental deletion of library or reviews
     useEffect(()=>{
         if(state._id){
         
     updateUser();
 
     }},[state])
+
+    //fetches user information, if newuser, creates a new user in the database
     useEffect(()=>{
         if(user){
             try{
@@ -218,13 +218,11 @@ const reducer = (state, action) => {
                             .then(data => getUser(data.data))
                                 console.log('in use effect')}
                 })
-                
-               
+
             }catch(err){
                     console.log(err)
                 }
             }
-   
             },[user])        
 //adds book to library: { bookId:123,book:{book obj},}
 const addBook = (data) => dispatch({type: 'add-book',payload:data});
@@ -233,32 +231,38 @@ const addBook = (data) => dispatch({type: 'add-book',payload:data});
 const addReview = (data) => dispatch({type: 'add-review',payload:data})
 //adds current user email to state
 const addEmail = (data) => dispatch({type: 'add-email',payload:data});
-// if(user){addEmail(user.email)}
+
 
 //removes selected book from library, data shape: { bookId:123}
 const removeBook = (data) => dispatch({type: 'remove-book',payload:data});
+
 //toggles favourites of select book on click
 const modifyFavourites = (data) => dispatch({type: 'modify-favourites',payload:data});
+
 //marks selected book as read
 const markAsRead = (data) => dispatch({type: 'mark-as-read',payload:data});
+
 //marks selected book as currently reading
 const markAsCurrentlyReading = (data) => dispatch({type: 'mark-as-currently-reading',payload:data});
+
 //adds selected book to wishlist
 const addToWishlist = (data) => dispatch({type: 'add-to-wishlist',payload:data});
 
+//adds user information to state
 const getUser = (data)=>dispatch({type: 'get-user',payload:data});
 
 //clears user's Library
 const clearLibrary = () => {dispatch({type:'clear-library'})};
+
 //clears reviews
 const clearReviews = () => {dispatch({type:'clear-reviews'})};
+
 //delete specific review based on book id
 const deleteReview = (data) => dispatch({type: 'delete-review',payload:data});
 
-console.log('state',state)
+// console.log('state',state)
 
 
-//cannot use useContext hook with AUth0, whe use context is not used in other components - it works
     return (
         <UserContext.Provider
             value={{
