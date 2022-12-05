@@ -67,9 +67,6 @@ if(book){
 
     },[book])
 
-console.log('book',book)
-console.log('reviews',reviews)
-console.log('book desc',bookDescription)
 
 if(book && bookDescription && state){
     const userReviews = state.reviews;
@@ -86,9 +83,7 @@ if(book && bookDescription && state){
             {book.isbn_13 && <p>isbn-13: {book.isbn_13[0]}</p>}
             {book.number_of_pages && <p>Number of pages: {book.number_of_pages}</p>}
             {book.publish_date && <p>Published on: {book.publish_date}</p>}
-            { book.publishers && <StyledList >
-                
-                {book.publishers && book.publishers.map(
+            { book.publishers && <StyledList > Publishers: {book.publishers && book.publishers.map(
                     (publisher) => <span key={publisher}>{publisher}</span>
                 )}
             </StyledList>}

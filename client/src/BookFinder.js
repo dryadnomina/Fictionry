@@ -146,7 +146,7 @@ console.log('filtered',filtered)
 
 export default BookFinder
 
-const StyledImgWrapper = styled.div`
+export const StyledImgWrapper = styled.div`
 
 img{
     width:180px;
@@ -174,6 +174,13 @@ p > span{
     padding:10px;
     color:white;
     cursor:pointer;
+}
+`
+export const StyledList = styled(StyledListItem)`
+div{
+display:flex;
+gap:5px;
+
 }
 `
 
