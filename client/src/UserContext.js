@@ -9,7 +9,7 @@ const initialState = {
     reviews:{}
 }
 
-
+const WEB_SERVICE_URL = 'https://fictionry.onrender.com';
 const reducer = (state, action) => {
  
     switch (action.type) {
@@ -169,7 +169,7 @@ const reducer = (state, action) => {
         //updates user when state changes
         const updateUser=()=>{
         
-            fetch('/update-user', {
+            fetch(WEB_SERVICE_URL + '/update-user', {
                 method: 'PATCH',
 
                 body: JSON.stringify(state),
@@ -194,7 +194,7 @@ const reducer = (state, action) => {
     useEffect(()=>{
         if(user){
             try{
-            fetch('/find-user', {
+            fetch(WEB_SERVICE_URL + '/find-user', {
                         method: 'POST',
         
                         body: JSON.stringify({email:user.email}),
@@ -206,7 +206,7 @@ const reducer = (state, action) => {
                 .then(data =>{ if(data.status === 200)
                     {getUser(data.data)
                     }else{
-                        fetch('/add-user', {
+                        fetch(WEB_SERVICE_URL + '/add-user', {
                                     method: 'POST',
                     
                                     body: JSON.stringify({state}),

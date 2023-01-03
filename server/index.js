@@ -9,6 +9,11 @@ express()
     .use(helmet())
     .use(morgan('tiny'))
 
+    .use(
+        cors({
+            origin: ["http://localhost:3000", "https://fictionry.onrender.com/"],
+        })
+    )
     .post('/add-user',addUser)
     .post('/find-user',getUser)
     .patch('/update-user',updateUser)
