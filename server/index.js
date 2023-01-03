@@ -11,7 +11,7 @@ express()
 
     .use(
         cors({
-            origin: ["http://localhost:3000", "https://fictionry.onrender.com/"],
+            origin: ["http://localhost:3000", "https://fictionry-d9yt.onrender.com"],
         })
     )
     .post('/add-user',addUser)
