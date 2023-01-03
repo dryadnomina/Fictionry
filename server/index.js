@@ -1,6 +1,7 @@
 const express = require('express')
 const helmet = require('helmet')
 const morgan = require('morgan')
+const cors = require('cors')
 const port = 8000
 const {addUser, getUser, updateUser} =require('./handlers')
 express()
